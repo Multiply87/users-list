@@ -21,6 +21,20 @@ export class UsersService {
     return this.usersList.sort((a, b) => direction * (a.username > b.username ? 1 : -1));
   }
 
+  addUser(newUser: User) {
+    this.usersList.push(newUser);
+  }
+
+  generateId(): number {
+    return parseInt(Math.max.apply(null, this.usersList.map(el => el.id)) + 1) | 0;
+  }
+
+  deleteUsers(selectedList: User[]) {
+    selectedList.forEach(user => {
+      this.usersList = this.usersList.filter(item => item.id !== user.id);
+    })
+  }
+
   usersList: User[] = [
     {
       id: 1,
